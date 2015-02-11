@@ -6,5 +6,9 @@ class Todo < ActiveRecord::Base
   def self.search(query)
     where("description like ?", "%#{query}%") 
   end  
+
+  def self.destroy_all_old
+    where("created_at <= ?", Time.now - 7.days).destroy_all
+  end
   
 end
