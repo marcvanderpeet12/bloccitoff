@@ -3,6 +3,13 @@ class TodosController < ApplicationController
   def index
     @todos = current_user.todos
     @todo = Todo.new
+
+    if params[:search]
+      @todos = Todo.search(params[:search]).order("created_at DESC")
+    else
+      @todos = Todo.all.order('created_at DESC')
+    end
+    
   end
 
   def new
