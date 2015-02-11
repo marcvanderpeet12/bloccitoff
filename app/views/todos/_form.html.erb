@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-12">
+
+      </br>
+      <h4>Create a new todo-item</h4>
+
+ </div>
+</div>
+
+
+<div class="row">
+<div class="well">
+  <div class="col-md-12">
+    <%= form_for @todo do |form| %>
+
+    <% if params[:preview_button]%>
+    <div>
+      <%= @todo.description %>
+    </div>
+    <% end %>
+
+      <% if @todo.errors.any? %>
+       <h4>There are <%= pluralize(todo.errors.count, "error") %>.</h4>
+        <ul>
+         <% todo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    
+      <% end %>
+
+      <%= form_group_tag(@todo.errors[:description]) do %>
+       <%= form.label :description %>
+       <%= form.text_area :description, rows: 8, class: 'form-control', placeholder: "Enter post body" %>
+      <% end %>
+   
+       <%= form.submit 'Save' %>
+        
+        <%= submit_tag 'Preview', :name => 'preview_button' %>       
+
+    <% end %>
+
+  </div>
+ </div>
+</div>

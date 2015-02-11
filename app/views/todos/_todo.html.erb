@@ -1,0 +1,6 @@
+
+  <p> Task: <%= todo.description %> </p>
+  <p> Check the item here: <%= link_to todo.description, todo_path(todo.id) %> </p>
+  <%= link_to "", todo, method: :delete, class: 'glyphicon glyphicon-ok' %>
+  </br>
+  </p>
