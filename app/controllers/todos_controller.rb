@@ -1,4 +1,5 @@
 class TodosController < ApplicationController
+  respond_to :html, :js
 
   def index
     @todos = current_user.todos
@@ -54,6 +55,7 @@ class TodosController < ApplicationController
       flash[:error] = "There was an error deleting the topic."
       render :show
     end
+    
 
   end 
 
