@@ -3,6 +3,13 @@ class TodosController < ApplicationController
   def index
     @todos = current_user.todos
     @todo = Todo.new
+
+    if params[:search]
+      @todos = Todo.search(params[:search]).order("created_at DESC")
+    else
+      @todos = Todo.all.order('created_at DESC')
+    end
+
   end
 
   def new
@@ -49,6 +56,16 @@ class TodosController < ApplicationController
     end
 
   end 
+
+  def destroy_all
+  
+   if Todo.destroy_all_old
+    flash[:notice] = "Your old todos are deled!"
+   else
+    flash[:error] = "There was an error!"
+   end 
+   redirect_to todos_path
+  end
  
 private
  
