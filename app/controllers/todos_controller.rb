@@ -22,6 +22,10 @@ class TodosController < ApplicationController
     if params[:preview_button] #|| !@todo.save
       render :action => 'new'
     elsif
+      !@todo.save
+      flash[:error] = "There was an error saving the post. Please try again."
+      render :new
+    elsif
       redirect_to todos_path, notice: 'Your new TODO was saved'
       @user = current_user
       @user.todos << @todo
@@ -50,11 +54,15 @@ class TodosController < ApplicationController
     
     if @todo.destroy  
      flash[:notice] = "Your todo was deleted!"
-     redirect_to todos_path
+     # redirect_to todos_path
     else
       flash[:error] = "There was an error deleting the topic."
-      render :show
+      # render :show
     end
+
+    respond_with(@todo) do |format|
+       format.html { redirect_to todos_path }
+     end
     
 
   end 
